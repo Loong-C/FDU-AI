@@ -106,7 +106,20 @@ def breadthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    start = problem.getStartState()
+    visited = set()
+    fringe = util.Queue()
+    fringe.push((start, []))
+    while not fringe.isEmpty():
+        current_state, actions = fringe.pop()
+        if problem.isGoalState(current_state):
+            return actions
+        if current_state not in visited:
+            visited.add(current_state)
+            for successor, action, _ in problem.getSuccessors(current_state):
+                if successor not in visited:
+                    fringe.push((successor, actions + [action]))
+    return []
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
