@@ -140,8 +140,26 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     Search the node that has the lowest combined cost and heuristic first."""
     if hasattr(heuristic, "choose_from_plateau"):
         return jevAStarSearch(problem, heuristic)
+
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    start = problem.getStartState()
+    start_f = heuristic(start, problem)
+    visited = set()
+    fringe = util.PriorityQueue()
+    fringe.push((start, [], start_f), start_f)
+    while not fringe.isEmpty():
+        current_state, actions, f = fringe.pop()
+        if problem.isGoalState(current_state):
+            return actions
+        else:
+            if current_state not in visited:
+                visited.add(current_state)
+                for successor, action, step_cost in problem.getSuccessors(current_state):
+                    if successor not in visited:
+                        successor_g = f - heuristic(current_state, problem) + step_cost
+                        successor_f = successor_g + heuristic(successor, problem)
+                        fringe.push((successor, actions + [action], successor_f), successor_f)
+    return []
 
 def jevAStarSearch(problem: SearchProblem, heuristic):
     """A* with Jev used only to order nodes sharing the minimum f value."""
