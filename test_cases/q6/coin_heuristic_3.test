@@ -1,0 +1,15 @@
+class: "HeuristicTest"
+
+heuristic: "coinHeuristic"
+searchProblemClass: "CoinSearchProblem"
+layoutName: "Test 3"
+layout: """
+%%%%
+%  %
+%  %
+%P %
+%  %
+%  %
+%%%%
+"""
+

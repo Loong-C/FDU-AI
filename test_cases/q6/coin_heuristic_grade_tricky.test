@@ -1,0 +1,19 @@
+class: "HeuristicGrade"
+
+heuristic: "coinHeuristic"
+searchProblemClass: "CoinSearchProblem"
+layoutName: "trickySearch"
+layout: """
+%%%%%%%%%%%%%%%%%%%%
+%.           ..%   %
+%.%%.%%.%%.%%.%% % %
+%        P       % %
+%%%%%%%%%%%%%%%%%% %
+%.....             %
+%%%%%%%%%%%%%%%%%%%%
+"""
+# One point always, an extra point for each
+# threshold passed.
+basePoints: "0"
+gradingThresholds: "15000 12000 9000 7000"
+

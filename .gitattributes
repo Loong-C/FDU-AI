@@ -1,0 +1,6 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.test text eol=lf
+*.solution text eol=lf
+*.lay text eol=lf

@@ -1,0 +1,17 @@
+class: "EvalAgentTest"
+
+agentName: "ExpectimaxAgent"
+agentArgs: "evalFn=better"
+layoutName: "smallClassic"
+maxTime: "120"
+numGames: "10"
+
+scoreThresholds: "500 1000"
+
+winsMinimum: "1"
+winsThresholds: "1 5 10"
+bonusWinsMinimum: "5"
+averageTimeMaximum: "30"
+
+randomSeed: "0"
+dragons: "[RandomDragon(1)]"
