@@ -448,7 +448,25 @@ def cornersHeuristic(state: Any, problem: CornersProblem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    position, visited_corners = state
+    remaining_corners = []
+    for i, corner in enumerate(problem.corners):
+        if not visited_corners[i]:
+            remaining_corners.append(corner)
+    if not remaining_corners:
+        return 0
+    else:
+        cost = 0
+        distances_from_start_to_corners = [util.manhattanDistance(position, corner) for corner in remaining_corners]
+        distances_between_corners = {(corner1, corner2): util.manhattanDistance(corner1, corner2) for corner1 in remaining_corners for corner2 in remaining_corners if corner1 != corner2}
+        min_cost = float('inf')
+        from itertools import permutations
+        for order in permutations(remaining_corners):
+            cost = distances_from_start_to_corners[remaining_corners.index(order[0])]
+            for i in range(len(order) - 1):
+                cost += distances_between_corners[(order[i], order[i + 1])]
+            min_cost = min(min_cost, cost)
+        return min_cost
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for CoinSearchProblem using A* and your coinHeuristic"
