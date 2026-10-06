@@ -560,7 +560,24 @@ def coinHeuristic(state: Tuple[Tuple, List[List]], problem: CoinSearchProblem):
     """
     position, coinGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    coins = coinGrid.asList()
+    if not coins:
+        return 0
+    distance_cache = problem.heuristicInfo.setdefault(
+        'mazeDistances', {}
+    )
+    max_distance = float('-inf')
+    for coin in coins:
+        key = tuple(sorted((position, coin)))
+        if key not in distance_cache:
+            distance_cache[key] = mazeDistance(
+                position, coin, problem.startingGameState
+            )
+
+        distance = distance_cache[key]
+        max_distance = max(max_distance, distance)
+
+    return max_distance
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all coins using a sequence of searches"
