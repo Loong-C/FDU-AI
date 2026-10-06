@@ -233,7 +233,34 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         legal moves.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        agent_nums = gameState.getNumAgents()
+        next_agent_index = 1 % agent_nums
+        initial_depth = 1 if next_agent_index == 0 else 0
+        def value(state, depth, agentIndex):
+            if state.isWin() or state.isLose() or depth == self.depth:
+                return self.evaluationFunction(state)
+            actions = state.getLegalActions(agentIndex)
+            successors = [state.generateSuccessor(agentIndex, action) for action in actions]
+            successor_values = []
+            for successor in successors:
+                if agentIndex == agent_nums - 1:
+                    successor_values.append(value(successor, depth + 1, 0))
+                else:
+                    successor_values.append(value(successor, depth, agentIndex + 1))
+            if agentIndex == 0:
+                return max(successor_values)
+            else:
+                return sum(successor_values) / len(successor_values) if successor_values else 0
+        actions = gameState.getLegalActions(0)
+        successors = [gameState.generateSuccessor(0, action) for action in actions]
+        best_action = None
+        best_value = float('-inf')
+        for action, successor in zip(actions, successors):
+            v = value(successor, initial_depth, next_agent_index)
+            if v > best_value:
+                best_value = v
+                best_action = action
+        return best_action
 
 # Optional, ungraded extension: reuse Jev to cache repeated states.
 _Q9_JEV_EVALUATOR = Q9JevEvaluator()
@@ -253,8 +280,43 @@ def betterEvaluationFunction(currentGameState: GameState):
         jev_score = _Q9_JEV_EVALUATOR.score(currentGameState)
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    position = currentGameState.getHeroPosition()
+    coins = currentGameState.getCoins().asList()
+    dragons = currentGameState.getDragonStates()
+    swords = currentGameState.getSwords()
+    score = currentGameState.getScore()
+    dragon_position = [dragon.getPosition() for dragon in dragons]
+    weakened_time = [dragon.weakenedTimer for dragon in dragons]
+    if currentGameState.isWin():
+        return 100000 + currentGameState.getScore()
 
-
+    if currentGameState.isLose():
+        return -100000 + currentGameState.getScore()
+    else:
+        evaluation = score
+        if coins:
+            nearest_coin_distance = min(
+                manhattanDistance(position, coin)
+                for coin in coins
+            )
+            evaluation += 1 / (nearest_coin_distance + 1)
+        if swords:
+            nearest_sword_distance = min(
+                manhattanDistance(position, sword)
+                for sword in swords
+            )
+            evaluation += 7 / (nearest_sword_distance + 1)
+        for dragon_pos, weakened in zip(dragon_position, weakened_time):
+            distance = manhattanDistance(position, dragon_pos)
+            if weakened == 0: # When the dragon is not weakened
+                dragon_penalty = 10 / (distance + 1)
+                evaluation -= dragon_penalty
+            if weakened > 5: # When the dragon is weakened
+                dragon_bonus = 5 / (distance + 1)
+                evaluation += dragon_bonus
+            if weakened > 0 and weakened <= 5: # When the dragon is weakened but not for long
+                dragon_penalty = 2 / (distance + 1)
+                evaluation -= dragon_penalty
+    return evaluation
 # Abbreviation: keep this name for the autograder.
 better = betterEvaluationFunction
