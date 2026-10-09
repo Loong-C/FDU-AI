@@ -143,22 +143,22 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
 
     "*** YOUR CODE HERE ***"
     start = problem.getStartState()
-    start_f = heuristic(start, problem)
-    visited = set()
+    best_cost = {start: 0}
     fringe = util.PriorityQueue()
-    fringe.push((start, [], start_f), start_f)
+    fringe.push((start, [], 0), heuristic(start, problem))
     while not fringe.isEmpty():
-        current_state, actions, f = fringe.pop()
+        current_state, actions, current_g = fringe.pop()
+        # A cheaper path may have superseded this queued entry.
+        if current_g > best_cost[current_state]:
+            continue
         if problem.isGoalState(current_state):
             return actions
-        else:
-            if current_state not in visited:
-                visited.add(current_state)
-                for successor, action, step_cost in problem.getSuccessors(current_state):
-                    if successor not in visited:
-                        successor_g = f - heuristic(current_state, problem) + step_cost
-                        successor_f = successor_g + heuristic(successor, problem)
-                        fringe.push((successor, actions + [action], successor_f), successor_f)
+        for successor, action, step_cost in problem.getSuccessors(current_state):
+            successor_g = current_g + step_cost
+            if successor_g < best_cost.get(successor, float('inf')):
+                best_cost[successor] = successor_g
+                successor_f = successor_g + heuristic(successor, problem)
+                fringe.push((successor, actions + [action], successor_g), successor_f)
     return []
 
 def jevAStarSearch(problem: SearchProblem, heuristic):
