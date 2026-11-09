@@ -1,0 +1,5 @@
+numpy
+matplotlib
+Pillow>=9.1
+tqdm
+typesafe-sdk

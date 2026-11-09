@@ -2,24 +2,61 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
 .venv/
 venv/
+env/
+
+# Test coverage and packaging output
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+build/
+dist/
 
 # Local credentials and editor settings
 .env
 .env.*
 !.env.example
+!.env.sample
+!.env.template
 .idea/
 .vscode/
 .codex/
 .agents/
 
-# Generated experiment output
-jev/results/
+# Generated experiment, training and grading output
+/PJ1/jev/results/
+/PJ2/checkpoints/
 recorded-game-*
+gradescope_response.json
+edx_response.html
+edx_grade
 *.log
 tmp/
 
-# Operating system files
+# LaTeX build artifacts (keep report sources and final PDFs)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+
+# Operating system and temporary editor files
 .DS_Store
 Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~

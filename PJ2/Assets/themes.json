@@ -1,0 +1,23 @@
+{
+  "defaultTheme": "classic",
+  "themes": {
+    "classic": {
+      "display": { "tileWidth": 30, "tileHeight": 30 },
+      "sprites": {
+        "hero.walkEast": "Art/classic/walk.gif",
+        "hero.walkNorth": "Art/classic/walk_back.gif",
+        "wall": "Art/classic/wall.png",
+        "coin": "Art/classic/coin.gif",
+        "sword": "Art/classic/sword.png",
+        "dragon.oneNorth": "Art/classic/dragon_back.gif",
+        "dragon.oneSouth": "Art/classic/dragon_head.gif",
+        "dragon.oneWest": "Art/classic/dragon_left.gif",
+        "dragon.oneEast": "Art/classic/dragon_right.gif",
+        "dragon.twoNorth": "Art/classic/dragon_back_2.gif",
+        "dragon.twoSouth": "Art/classic/dragon_head_2.gif",
+        "dragon.twoWest": "Art/classic/dragon_left_2.gif",
+        "dragon.twoEast": "Art/classic/dragon_right_2.gif"
+      }
+    }
+  }
+}
