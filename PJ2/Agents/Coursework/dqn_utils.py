@@ -22,22 +22,22 @@ class ReplayBuffer:
         if int(capacity) <= 0:
             raise ValueError('Replay capacity must be positive')
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        self.buffer = deque(maxlen=capacity)
 
     def add(self, transition):
         """Add a transition to the buffer."""
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        self.buffer.append(transition)
 
     def sample(self, batch_size):
         """Return batch_size distinct stored transitions in a list."""
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return random.sample(list(self.buffer), batch_size)
 
     def __len__(self):
         """Return the current number of stored transitions, not the capacity."""
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return len(self.buffer)
 
 
 class EpsilonScheduler:
@@ -55,7 +55,8 @@ class EpsilonScheduler:
     def value(self, step):
         """Return the epsilon for the given number of collected transitions."""
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        progress = min(1.0, max(0.0, step / self.decay_steps))
+        return self.start + (self.end - self.start) * progress
 
 
 if __name__ == '__main__':

@@ -27,6 +27,7 @@ dist/
 .vscode/
 .codex/
 .agents/
+/_acl-recovery/
 
 # Generated experiment, training and grading output
 /PJ1/jev/results/
