@@ -71,12 +71,11 @@ class ValueIterationAgent(ValueEstimationAgent):
             for state in self.mdp.getStates():
                 if self.mdp.isTerminal(state):
                     new_values[state] = 0
-                else:
-                    action_values = []
-                    for action in self.mdp.getPossibleActions(state):
-                        q_value = self.computeQValue(state, action)
-                        action_values.append(q_value)
-                    new_values[state] = max(action_values)
+                    continue
+                action = self.computeActionFromValues(state)
+                new_values[state] = (
+                    0 if action is None else self.computeQValue(state, action)
+                )
             self.values = new_values
 
     def getValue(self, state):
