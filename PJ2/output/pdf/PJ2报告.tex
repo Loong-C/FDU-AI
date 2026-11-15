@@ -1,10 +1,10 @@
 % !TEX program = xelatex
 % 在本目录运行 XeLaTeX。评分截图 autograder.png 与本文件同目录。
-% 如需合并手写答题页，将扫描件保存为同目录的 Q8手写.pdf，再重新编译。
+% 第 8 题使用同目录下裁切后的原始笔迹文件 Q8手写.pdf。
 \documentclass[UTF8,fontset=fandol,a4paper,11pt]{ctexart}
 \usepackage[left=23mm,right=23mm,top=20mm,bottom=21mm]{geometry}
 \usepackage{amsmath,amssymb,booktabs,tabularx,array}
-\usepackage{graphicx,xcolor,listings,pdfpages}
+\usepackage{graphicx,xcolor,listings}
 \usepackage[hidelinks]{hyperref}
 \hypersetup{pdftitle={人工智能 PJ2：强化学习实验报告},pdfauthor={陈家龙、刘俊彦}}
 \setlength{\parindent}{2em}
@@ -57,7 +57,7 @@
 
 \section{实验环境与课上核心算法}
 
-实验在 Windows、Python 3.13.9 环境下运行。课上实现位于 \code{Agents/Coursework} 下的 \code{value\_iteration\_agents.py} 和 \code{qlearning\_agents.py}。
+实验在 Windows、Python 3.13.9 环境下运行。课上实现位于 \code{value\_iteration\_agents.py} 和 \code{qlearning\_agents.py}。
 
 \subsection{Q1：值迭代}
 
@@ -235,7 +235,7 @@ def __len__(self):
 
 \section{自动评分结果}
 
-在 \code{PJ2} 目录下执行 \code{python autograder.py --no-graphics}，Q1--Q7 共获 25/25。图~\ref{fig:autograder} 截取自本次运行的原始日志。Q8 手写答题页另附。
+在 \code{PJ2} 目录下执行 \code{python autograder.py --no-graphics}，Q1--Q7 共获 25/25。下图截取自本次运行的原始日志。Q8 手写答题页另附。
 
 \begin{figure}[!h]
   \centering
@@ -244,5 +244,9 @@ def __len__(self):
   \label{fig:autograder}
 \end{figure}
 
-\IfFileExists{Q8手写.pdf}{\clearpage\includepdf[pages=-,pagecommand={}]{Q8手写.pdf}}{}
+\clearpage
+\section*{Q8：MDP 的回报}
+
+\noindent\includegraphics[width=\linewidth]{Q8手写.pdf}\par
+
 \end{document}
